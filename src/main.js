@@ -1,55 +1,110 @@
-import { fetchPhotoFromPixabay } from './js/pixabay-api';
-import { renderPhotos } from './js/render-functions';
-import SimpleLightbox from "simplelightbox";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
-import "simplelightbox/dist/simple-lightbox.min.css";
+import { fetchPhotoFromPixabay, limit } from './js/pixabay-api';
+import { renderPhotos, listOfPhotos } from './js/render-functions';
 
-const form = document.querySelector('.search-form');
-export const inputSearch = form.elements.search;
-export const listOfPhotos = document.querySelector('.gallery');
-export const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250
-});
+export const form = document.querySelector('.search-form');
+export let page = 1;
+export let input = '';
+const nextPageBtn = document.querySelector('.next-page-btn');
+hideElement(nextPageBtn);
 const preloader = document.querySelector('.loader');
-preloader.style.display = 'none';
+hideElement(preloader);
+let totalPages = 1;
 
-export const showLoader = () => {
-    preloader.style.display = 'flex';
-};
-const hideLoader = () => {
-    preloader.style.display = 'none';
-};
+window.onload = handleLoad;
 
+form.addEventListener('submit', handleSendForm);
+nextPageBtn.addEventListener('click', handleNextPage);
 
-form.addEventListener('submit', sendForm);
-
-function sendForm(evt) {
+function handleSendForm(evt) {
     evt.preventDefault();
     listOfPhotos.innerHTML = "";
-    
-    const input = evt.target.elements.search.value.trim();
-    if (input !== '') {
-        window.onload = () => {
-            fetchPhotoFromPixabay(input)
-                .then((photos) => {
-                    renderPhotos(photos.hits);
-                    hideLoader();
-                })
-                .catch((error) => {
-                    console.log(error);
-                    hideLoader();
-                    iziToast.error({
-                        message: 'Sorry, an error occurred while loading. Please try again!',
+    const newInput = evt.target.elements.search.value.trim();
+    if (newInput !== '') {
+        page = 1;
+        input = newInput;
+        handleSubmit();
+    } else {
+        return iziToast.show({
+            message: 'Please complete the field!',
+            theme: 'dark',
+            progressBarColor: '#FFFFFF',
+            color: '#EF4040',
+            position: 'topRight',
+        });
+    }
+}
+
+async function handleSubmit() {
+    try {
+        hideElement(nextPageBtn);
+        showElement(preloader);
+        if (page <= totalPages) {
+            const photoFromPixabay = await fetchPhotoFromPixabay();
+            if (photoFromPixabay.totalHits != 0) {
+                totalPages = Math.ceil(photoFromPixabay.totalHits / limit);
+                renderPhotos(photoFromPixabay.hits);
+                const itemOfList = listOfPhotos.querySelector('.photos-list-item');
+                const domRect = itemOfList.getBoundingClientRect();
+                window.scrollBy({
+                    top: domRect.height * 2,
+                    behavior: "smooth",
+                });
+                if (page < totalPages) {
+                    showElement(nextPageBtn);
+                }
+                else {
+                    iziToast.info({
                         theme: 'dark',
                         progressBarColor: '#FFFFFF',
-                        color: '#EF4040',
-                        position: 'topRight',
+                        position: "topRight",
+                        message: "We're sorry, there are no more images to load"
                     });
+                }
+            } else {
+                iziToast.error({
+                    message: 'Sorry, there are no images matching your search query. Please try again!',
+                    theme: 'dark',
+                    progressBarColor: '#FFFFFF',
+                    color: '#EF4040',
+                    position: 'topRight',
                 });
+            }
         }
-        window.onload();
+    } catch (error) {
+        console.log(error);
+        iziToast.error({
+            message: `${error.message}`,
+            theme: 'dark',
+            progressBarColor: '#FFFFFF',
+            color: '#EF4040',
+            position: 'topRight',
+        });
+    } finally {
+        hideElement(preloader);
+        handleLoad();
         form.reset();
     }
 }
+
+function handleNextPage() {
+    ++page;
+    handleSubmit();
+};
+
+
+function showElement(element) {
+    element.classList.toggle('hidden');
+    element.style.display = 'flex';
+};
+
+function hideElement(element) {
+    element.classList.toggle('hidden');
+    element.style.display = 'none';
+};
+
+function handleLoad() {
+    document.body.classList.add('loaded');
+    document.body.classList.remove('loaded_hiding');
+};

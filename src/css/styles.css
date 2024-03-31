@@ -1,15 +1,9 @@
-/**
-  |============================
-  | include css partials with
-  | default @import url()
-  |============================
-*/
 @import url('./reset.css');
-@import url('./vite-promo.css');
-@import url('./header.css');
+
 
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Montserrat,
+    sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
@@ -23,49 +17,120 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
 body {
-  max-width: 1440px;
-  display: block;
-  box-sizing: border-box;
-  background-color: #FFFFFF;
-  color: #212121;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #2E2F42;
+  background-color: transparent;
 }
-form {
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.search-form {
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 40px;
+  gap: 8px;
+  position: relative;
+  top: 36px;
+  left: 534px;
 }
-input{
+
+.search-input-form {
   width: 371px;
-  height: 40px;
-  border-radius: 4px;
+    height: 40px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #808080;
+    border: 1px solid #808080;
+    padding-left: 16px;
+}
+
+.search-input-form::placeholder {
+  color: #808080;
   font-size: 16px;
   font-weight: 400;
-  color: #808080;
-  border: 1px solid #808080;
-  padding-left: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
 }
-button{
-  padding: 8px 16px 8px 16px;
-  background-color: #4E75FF;
-  color: #FFFFFF;
-  border-radius: 8px;
-  gap: 10px;
+
+.search-input-form:hover {
+  border-color: #000;
+}
+
+.search-input-form:focus-within {
+  border-color: #4e75ff;
+}
+
+.btn-search-form {
   width: 91px;
+  height: 40px;
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  background-color: #4e75ff;
+  color: #fff;
   font-size: 16px;
+  font-style: normal;
   font-weight: 500;
-  box-shadow: none;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: background-color 250ms linear;
 }
+
+.btn-search-form:hover,
+.btn-search-form:focus {
+  background-color: #6c8cff;
+}
+
+.next-page-btn {
+  width: 125px;
+  height: 40px;
+  display: block;
+  padding: 8px 16px;
+  text-align: center;
+  margin: 20px 657px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4e75ff;
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: background-color 250ms linear;
+}
+
+.next-page-btn:hover,
+.next-page-btn:focus {
+  background-color: #6c8cff;
+}
+
 /* -------------------Gallery of photo----------------- */
 
 .gallery {
   display: flex;
   width: 1440px;
-  height: 792px;
   padding-top: 108px;
   padding-right: 156px;
   padding-left: 156px;
@@ -119,8 +184,8 @@ button{
   height: 48px;
   border-radius: 50%;
   position: relative;
-  top: 80px;
-  left: 650px;
+  top: 0;
+  left: 670px;
   animation: rotate 1s linear infinite
 }
 

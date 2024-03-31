@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>goit-js-hw-11</title>
+  <title>goit-js-hw-12</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -16,14 +16,18 @@
   <header></header>
 
   <main>
-    <form class="search-form">
-      <label class="input-label-search-form visually-hidden" for="search-input">
-      </label>
-      <input class="search-input-form" type="text" name="search" id="search-input" placeholder="Search images..." required/>
-      <button class="btn-search-form" type="submit">Search</button>
-    </form>
-    <div class="loader"></div>
+    <div class="form-container">
+      <form class="search-form">
+        <label class="input-label-search-form visually-hidden" for="search-input">
+          Search
+        </label>
+        <input class="search-input-form" type="text" name="search" id="search-input" placeholder="Search images..." />
+        <button class="btn-search-form" type="submit">Search</button>
+      </form>
+    </div>
     <ul class="gallery"></ul>
+    <button class="next-page-btn" type="submit">Load more</button>
+    <div class="loader"></div>
   </main>
   <script type="module" src="./main.js"></script>
 </body>
