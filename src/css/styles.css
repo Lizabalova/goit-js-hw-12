@@ -50,7 +50,7 @@ body {
 }
 
 .search-input-form {
-  width: 371px;
+    width: 371px;
     height: 40px;
     border-radius: 4px;
     font-size: 16px;
@@ -125,7 +125,19 @@ body {
 .next-page-btn:focus {
   background-color: #6c8cff;
 }
-
+.no-more-images {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #EF4040;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  /* Ensure it's above other elements */
+}
 /* -------------------Gallery of photo----------------- */
 
 .gallery {
