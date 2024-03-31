@@ -5,29 +5,33 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/goit-js-hw-11/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>goit-js-hw-11</title>
+  <title>goit-js-hw-12</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
   
   <script type="module" crossorigin src="/goit-js-hw-11/commonHelpers.js"></script>
-  <link rel="modulepreload" crossorigin href="/goit-js-hw-11/assets/vendor-5b791d57.js">
+  <link rel="modulepreload" crossorigin href="/goit-js-hw-11/assets/vendor-550cebad.js">
   <link rel="stylesheet" href="/goit-js-hw-11/assets/vendor-cf6910df.css">
-  <link rel="stylesheet" href="/goit-js-hw-11/assets/index-cca63fc8.css">
+  <link rel="stylesheet" href="/goit-js-hw-11/assets/index-c08a576c.css">
 </head>
 
 <body>
   <header></header>
 
   <main>
-    <form class="search-form">
-      <label class="input-label-search-form visually-hidden" for="search-input">
-      </label>
-      <input class="search-input-form" type="text" name="search" id="search-input" placeholder="Search images..." required/>
-      <button class="btn-search-form" type="submit">Search</button>
-    </form>
-    <div class="loader"></div>
+    <div class="form-container">
+      <form class="search-form">
+        <label class="input-label-search-form visually-hidden" for="search-input">
+          Search
+        </label>
+        <input class="search-input-form" type="text" name="search" id="search-input" placeholder="Search images..." />
+        <button class="btn-search-form" type="submit">Search</button>
+      </form>
+    </div>
     <ul class="gallery"></ul>
+    <button class="next-page-btn" type="submit">Load more</button>
+    <div class="loader"></div>
   </main>
   
 </body>
