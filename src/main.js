@@ -1,3 +1,4 @@
+
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import { fetchPhotoFromPixabay, limit } from './js/pixabay-api';
@@ -7,13 +8,9 @@ export const form = document.querySelector('.search-form');
 export let page = 1;
 export let input = '';
 const nextPageBtn = document.querySelector('.next-page-btn');
-const preloader = document.querySelector('.loader');
-const noMoreImagesMsg = document.querySelector('.no-more-images');
-
 hideElement(nextPageBtn);
-hideElement(noMoreImagesMsg);
+const preloader = document.querySelector('.loader');
 hideElement(preloader);
-
 let totalPages = 1;
 
 window.onload = handleLoad;
@@ -30,7 +27,7 @@ function handleSendForm(evt) {
         input = newInput;
         handleSubmit();
     } else {
-        iziToast.show({
+        return iziToast.show({
             message: 'Please complete the field!',
             theme: 'dark',
             progressBarColor: '#FFFFFF',
@@ -43,7 +40,6 @@ function handleSendForm(evt) {
 async function handleSubmit() {
     try {
         hideElement(nextPageBtn);
-        hideElement(noMoreImagesMsg);
         showElement(preloader);
         if (page <= totalPages) {
             const photoFromPixabay = await fetchPhotoFromPixabay();
@@ -60,7 +56,12 @@ async function handleSubmit() {
                     showElement(nextPageBtn);
                 }
                 else {
-                    showElement(noMoreImagesMsg);
+                    iziToast.info({
+                        theme: 'dark',
+                        progressBarColor: '#FFFFFF',
+                        position: "topRight",
+                        message: "We're sorry, there are no more images to load"
+                    });
                 }
             } else {
                 iziToast.error({
@@ -91,19 +92,20 @@ async function handleSubmit() {
 function handleNextPage() {
     ++page;
     handleSubmit();
-}
+};
+
 
 function showElement(element) {
-    element.classList.remove('hidden');
-    element.style.display = 'block';
-}
+    element.classList.toggle('hidden');
+    element.style.display = 'flex';
+};
 
 function hideElement(element) {
-    element.classList.add('hidden');
+    element.classList.toggle('hidden');
     element.style.display = 'none';
-}
+};
 
 function handleLoad() {
     document.body.classList.add('loaded');
     document.body.classList.remove('loaded_hiding');
-}
+};

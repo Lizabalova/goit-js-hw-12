@@ -23,5 +23,3 @@ export async function fetchPhotoFromPixabay() {
     const response = await axios.get(`https://pixabay.com/api/?${searchParams}`);
     return response.data;
 }
-
-
